@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>B64-v</title>
+        <style>
+            body            { font-family:Calibri}
+            input           { width:100%; background-color:GhostWhite}
+            td              { font-size: 14pt;}
+            textarea.post   { width:100%; background-color:GhostWhite; height:400px; resize:none; font-size: 8pt; border:1px solid black;}
+            input.icon      { width:48px; background-color:Beige}
+            div.external    { width:480px; margin-left:auto; margin-right:auto;}
+            div.invisible   { width:480px; border:0px;}
+            div.internal    { 
+                              width:480px; border:2px solid darkred; padding-left:10px; padding-right:5px; 
+                              padding-top:5px; padding-bottom:5px; border-radius:10px; background-color:Beige
+                            }
+        </style>
+        <script>
+        function submit_check()
+        {
+            var retval;
+            retval = (document.getElementById('inputData').value.replace(/^\s+|\s+$/g, '') != '');
+            return retval;
+        }
+        </script>
+    </head>
+    <body>
+    <div class="external">
+        <div class="invisible" align="right">
+            <img src="base64.png"/>
+        </div>
+        <div class="internal">
+            <form method="POST" action="base64.mirror.php" target="_new" onsubmit="return submit_check()">
+            <table style="width:99%">
+                <tr>
+                    <td colspan=2>
+                        <textarea id="inputData" name="inputData" class="post" title="Paste base64 data here"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Paste-and-run</td>
+                    <td align="right">
+                        <input type="image" src="clear.png" class="icon" alt="reset" title="Clear data" onclick="this.form.reset()"/>
+                        <input type="image" src="run.png" class="icon" alt="submit" title="Run request"/>
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+    </div>
+    </body>
+</html>

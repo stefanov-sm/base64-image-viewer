@@ -19,9 +19,7 @@
         <script>
         function submit_check()
         {
-            var retval;
-            retval = (document.getElementById('inputData').value.replace(/^\s+|\s+$/g, '') != '');
-            return retval;
+            return (document.getElementById('inputData').value.replace(/^\s+|\s+$/g, '') != '');
         }
         </script>
     </head>

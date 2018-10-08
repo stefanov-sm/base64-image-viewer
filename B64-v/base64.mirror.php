@@ -33,7 +33,7 @@ function mlike($s, $magic)
 {
 	return (substr($s, 0, strlen($magic)) === $magic);
 }
-$now = date('Ymd.His');
+$now = date('ymd.His');
 $inlineheader = str_replace('TIMESTAMP', $now, INLINEHEADER);
 
 // Decode the inpust and send it back

@@ -24,10 +24,18 @@ const PDFHEADER = 'Content-type: application/pdf',
 
 // Disposition headers
 const INLINEHEADER = 'Content-Disposition: inline; filename="B64-v image"',
-      ZIPATTACH = 'Content-Disposition: attachment; filename="decoded.__TIMESTAMP__.zip"',
-      TIFFATTACH = 'Content-Disposition: attachment; filename="decoded.__TIMESTAMP__.tif"',
-      OTHERSATTACH = 'Content-Disposition: attachment; filename="decoded.__TIMESTAMP__.file"';
+      ZIPATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.zip"',
+      TIFFATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.tif"',
+      OTHERSATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.file"';
 
+// string like magic%
+function mlike($s, $magic)
+{
+	return (substr($s, 0, strlen($magic)) === $magic);
+}
+$now = date('Ymd.His');
+
+// Decode the inpust and send it back
 if (($inputData = base64_decode($_POST['inputData'], TRUE)) === FALSE)
 {
     echo '<H2>Nope</H2>';
@@ -37,55 +45,52 @@ else
     $prefix = substr($inputData, 0, 16);
 
     // PDF
-    if (substr($prefix, 0, strlen(PDFMAGIC)) == PDFMAGIC)
+    if (mlike($prefix, PDFMAGIC))
     {
         header(PDFHEADER);
         header(INLINEHEADER);
     }
     // PNG
-    elseif (substr($prefix, 0, strlen(PNGMAGIC)) == PNGMAGIC)
+    elseif (mlike($prefix, PNGMAGIC))
     {
         header(PNGHEADER);
         header(INLINEHEADER);
     }
     // JPEG
-    elseif (substr($prefix, 0, strlen(JPEGMAGIC)) == JPEGMAGIC)
+    elseif (mlike($prefix, JPEGMAGIC))
     {
         header(JPEGHEADER);
         header(INLINEHEADER);
     }
     // BMP
-    elseif (substr($prefix, 0, strlen(BMPMAGIC)) == BMPMAGIC)
+    elseif (mlike($prefix, BMPMAGIC))
     {
         header(BMPHEADER);
         header(INLINEHEADER);
     }
     // GIF
-    elseif ((substr($prefix, 0, strlen(GIFMAGICA)) == GIFMAGICA) || 
-            (substr($prefix, 0, strlen(GIFMAGICB)) == GIFMAGICB))
+    elseif (mlike($prefix, GIFMAGICA) || mlike($prefix, GIFMAGICB))
     {
         header(GIFHEADER);
         header(INLINEHEADER);
     }
     // TIFF
-    elseif ((substr($prefix, 0, strlen(TIFFMAGICA)) == TIFFMAGICA) || 
-            (substr($prefix, 0, strlen(TIFFMAGICB)) == TIFFMAGICB))
+    elseif (mlike($prefix, TIFFMAGICA) || mlike($prefix, TIFFMAGICB))
     {
         header(TIFFHEADER);
-        header(str_replace('__TIMESTAMP__', date('Ymd.His'), TIFFATTACH));
+        header(str_replace('TIMESTAMP', $now, TIFFATTACH));
     }
     // ZIP
-    elseif ((substr($prefix, 0, strlen(ZIPMAGICA)) == ZIPMAGICA) ||
-            (substr($prefix, 0, strlen(ZIPMAGICB)) == ZIPMAGICB))
+    elseif (mlike($prefix, ZIPMAGICA) || mlike($prefix, ZIPMAGICB))
     {
         header(ZIPHEADER);
-        header(str_replace('__TIMESTAMP__', date('Ymd.His'), ZIPATTACH));
+        header(str_replace('TIMESTAMP', $now, ZIPATTACH));
     }
     // All the rest
     else
     {
         header(OTHERSHEADER);
-        header(str_replace('__TIMESTAMP__', date('Ymd.His'), OTHERSATTACH));
+        header(str_replace('TIMESTAMP', $now, OTHERSATTACH));
     }
     echo $inputData; // No ketchup just sauce raw sauce
 }

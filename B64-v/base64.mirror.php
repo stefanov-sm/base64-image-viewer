@@ -23,7 +23,7 @@ const PDFHEADER = 'Content-type: application/pdf',
       OTHERSHEADER = 'Content-Type: application/octet-stream';
 
 // Disposition headers
-const INLINEHEADER = 'Content-Disposition: inline; filename="decoded.TIMESTAMP.image"',
+const INLINEHEADER = 'Content-Disposition: inline; filename="decoded.TIMESTAMP.image.FILEXT"',
       ZIPATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.zip"',
       TIFFATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.tif"',
       OTHERSATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.file"';
@@ -49,31 +49,31 @@ else
     if (mlike($prefix, PDFMAGIC))
     {
         header(PDFHEADER);
-        header($inlineheader);
+        header(str_replace('FILEXT', 'pdf', $inlineheader));
     }
     // PNG
     elseif (mlike($prefix, PNGMAGIC))
     {
         header(PNGHEADER);
-        header($inlineheader);
+        header(str_replace('FILEXT', 'png', $inlineheader));
     }
     // JPEG
     elseif (mlike($prefix, JPEGMAGIC))
     {
         header(JPEGHEADER);
-        header($inlineheader);
+        header(str_replace('FILEXT', 'jpg', $inlineheader));
     }
     // BMP
     elseif (mlike($prefix, BMPMAGIC))
     {
         header(BMPHEADER);
-        header($inlineheader);
+        header(str_replace('FILEXT', 'bmp', $inlineheader));
     }
     // GIF
     elseif (mlike($prefix, GIFMAGICA) || mlike($prefix, GIFMAGICB))
     {
         header(GIFHEADER);
-        header($inlineheader);
+        header(str_replace('FILEXT', 'gif', $inlineheader));
     }
     // TIFF
     elseif (mlike($prefix, TIFFMAGICA) || mlike($prefix, TIFFMAGICB))

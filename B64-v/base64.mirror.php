@@ -37,7 +37,7 @@ $now = date('ymd.His');
 $inlineheader = str_replace('TIMESTAMP', $now, INLINEHEADER);
 
 // Decode the inpust and send it back
-if (($inputData = base64_decode($_POST['inputData'], TRUE)) === FALSE)
+if (($inputData = base64_decode($_POST['inputData'])) === FALSE)
 {
     echo '<H2>Nope</H2>';
 }

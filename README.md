@@ -2,3 +2,4 @@
 
 HTTP headers magic.  
 PDF, PNG, JPEG, GIF, bitmap, TIFF and ZIP formats are detected. JAR and XML office formats are recognized as ZIP.
+<img src="b64v.png" style='border: 1px solid black' />

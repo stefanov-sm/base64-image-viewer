@@ -36,7 +36,7 @@ function mlike($s, $magic)
 $now = date('ymd.His');
 $inlineheader = str_replace('TIMESTAMP', $now, INLINEHEADER);
 
-// Decode the inpust and send it back
+// Decode the input and send it back
 if (($outputData = base64_decode($_POST['inputData'])) === FALSE)
 {
     echo '<H2>Nope</H2>';

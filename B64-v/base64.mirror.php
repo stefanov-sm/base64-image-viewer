@@ -35,11 +35,15 @@ const INLINEHEADER = 'Content-Disposition: inline; filename="decoded.TIMESTAMP.i
       TIFFATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.tif"',
       OTHERSATTACH = 'Content-Disposition: attachment; filename="decoded.TIMESTAMP.file"';
 
-// string like magic%
-function mlike($s, $magic)
+// Magic number like (string like magic%)
+function mlike($s, $magica, $magicb = NULL)
 {
-	return (substr($s, 0, strlen($magic)) === $magic);
+    if (is_null($magicb))
+        return (substr($s, 0, strlen($magica)) === $magica);
+    else
+        return (substr($s, 0, strlen($magica)) === $magica) || (substr($s, 0, strlen($magicb)) === $magicb);
 }
+
 $now = date('ymd.His');
 $inlineheader = str_replace('TIMESTAMP', $now, INLINEHEADER);
 
@@ -77,19 +81,19 @@ else
         header(str_replace('FILEXT', BMPEXT, $inlineheader));
     }
     // GIF
-    elseif (mlike($prefix, GIFMAGICA) || mlike($prefix, GIFMAGICB))
+    elseif (mlike($prefix, GIFMAGICA, GIFMAGICB))
     {
         header(GIFHEADER);
         header(str_replace('FILEXT', GIFEXT, $inlineheader));
     }
     // TIFF
-    elseif (mlike($prefix, TIFFMAGICA) || mlike($prefix, TIFFMAGICB))
+    elseif (mlike($prefix, TIFFMAGICA, TIFFMAGICB))
     {
         header(TIFFHEADER);
         header(str_replace('TIMESTAMP', $now, TIFFATTACH));
     }
     // ZIP
-    elseif (mlike($prefix, ZIPMAGICA) || mlike($prefix, ZIPMAGICB))
+    elseif (mlike($prefix, ZIPMAGICA, ZIPMAGICB))
     {
         header(ZIPHEADER);
         header(str_replace('TIMESTAMP', $now, ZIPATTACH));

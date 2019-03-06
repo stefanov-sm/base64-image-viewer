@@ -3,7 +3,7 @@
 // Magic numbers
 const PDFMAGIC = "%PDF",
       PNGMAGIC = "\x89PNG\x0D\x0A\x1A\x0A",
-      JPEGMAGIC = "\xFF\xD8\xFF",
+      JPGMAGIC = "\xFF\xD8\xFF",
       BMPMAGIC = "BM",
       TIFFMAGICA = "II*",
       TIFFMAGICB = "MM*",
@@ -11,6 +11,13 @@ const PDFMAGIC = "%PDF",
       GIFMAGICB = "GIF89a",
       ZIPMAGICA = "PK\x03\x04",
       ZIPMAGICB = "PK\x05\x06";
+
+// File extensions
+const PDFEXT = "pdf",
+      PNGEXT = "png",
+      JPGEXT = "jpg",
+      BMPEXT = "bmp",
+      GIFEXT = "gif";
 
 // Type headers
 const PDFHEADER = 'Content-type: application/pdf',
@@ -49,31 +56,31 @@ else
     if (mlike($prefix, PDFMAGIC))
     {
         header(PDFHEADER);
-        header(str_replace('FILEXT', 'pdf', $inlineheader));
+        header(str_replace('FILEXT', PDFEXT, $inlineheader));
     }
     // PNG
     elseif (mlike($prefix, PNGMAGIC))
     {
         header(PNGHEADER);
-        header(str_replace('FILEXT', 'png', $inlineheader));
+        header(str_replace('FILEXT', PNGEXT, $inlineheader));
     }
     // JPEG
-    elseif (mlike($prefix, JPEGMAGIC))
+    elseif (mlike($prefix, JPGMAGIC))
     {
         header(JPEGHEADER);
-        header(str_replace('FILEXT', 'jpg', $inlineheader));
+        header(str_replace('FILEXT', JPGEXT, $inlineheader));
     }
     // BMP
     elseif (mlike($prefix, BMPMAGIC))
     {
         header(BMPHEADER);
-        header(str_replace('FILEXT', 'bmp', $inlineheader));
+        header(str_replace('FILEXT', BMPEXT, $inlineheader));
     }
     // GIF
     elseif (mlike($prefix, GIFMAGICA) || mlike($prefix, GIFMAGICB))
     {
         header(GIFHEADER);
-        header(str_replace('FILEXT', 'gif', $inlineheader));
+        header(str_replace('FILEXT', GIFEXT, $inlineheader));
     }
     // TIFF
     elseif (mlike($prefix, TIFFMAGICA) || mlike($prefix, TIFFMAGICB))

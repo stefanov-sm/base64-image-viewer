@@ -37,13 +37,13 @@ $now = date('ymd.His');
 $inlineheader = str_replace('TIMESTAMP', $now, INLINEHEADER);
 
 // Decode the inpust and send it back
-if (($inputData = base64_decode($_POST['inputData'])) === FALSE)
+if (($outputData = base64_decode($_POST['inputData'])) === FALSE)
 {
     echo '<H2>Nope</H2>';
 }
 else
 {
-    $prefix = substr($inputData, 0, 16);
+    $prefix = substr($outputData, 0, 16);
 
     // PDF
     if (mlike($prefix, PDFMAGIC))
@@ -93,5 +93,5 @@ else
         header(OTHERSHEADER);
         header(str_replace('TIMESTAMP', $now, OTHERSATTACH));
     }
-    echo $inputData; // No ketchup just sauce raw sauce
+    echo $outputData;
 }
